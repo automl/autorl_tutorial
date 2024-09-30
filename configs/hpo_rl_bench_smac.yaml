@@ -4,7 +4,7 @@ defaults:
   - override hydra/sweeper: HyperCARPS
 
 algorithm: PPO
-environment: Pong-v0
+env: Pong-v0
 metric_key: "eval_avg_returns"
 seed: 0
 budget: 50
@@ -48,6 +48,6 @@ hydra:
               _partial_: true
               eta: 3
   run:
-    dir: ./results/hpo_rl_bench/${algorithm}_${environment}_smac/
+    dir: ./results/hpo_rl_bench/${algorithm}_${env}_smac/
   sweep:
-    dir: ./results/hpo_rl_bench/${algorithm}_${environment}_smac/
+    dir: ./results/hpo_rl_bench/${algorithm}_${env}_smac/

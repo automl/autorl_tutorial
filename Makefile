@@ -18,7 +18,9 @@ help:
 install: install-hpo-rl-bench install-other-dependencies
 install-hpo-rl-bench: ## run tests quickly with the default Python
 	git submodule update --init --recursive
-	python -m pip install -r hpo_rl_requirements.txt
+	uv pip install -r hpo_rl_requirements.txt
 install-other-dependencies:
-	python -m pip install arlbench "hypersweeper[carps,dehb]"
-	python -m pip install numpy==1.24.0
+	uv pip install arlbench gymnasium==0.29.1 xminigrid
+	uv pip install "hypersweeper[carps,dehb]"
+	uv pip install numpy==1.24.0
+	

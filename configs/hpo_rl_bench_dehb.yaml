@@ -4,7 +4,7 @@ defaults:
   - override hydra/sweeper: HyperDEHB
 
 algorithm: PPO
-environment: Pong-v0
+env: Pong-v0
 metric_key: "eval_avg_returns"
 seed: 0
 budget: 50
@@ -29,6 +29,6 @@ hydra:
           output_path: ${hydra.sweep.dir}
     search_space: ${search_space}
   run:
-    dir: ./results/hpo_rl_bench/${algorithm}_${environment}_dehb/
+    dir: ./results/hpo_rl_bench/${algorithm}_${env}_dehb/
   sweep:
-    dir: ./results/hpo_rl_bench/${algorithm}_${environment}_dehb/
+    dir: ./results/hpo_rl_bench/${algorithm}_${env}_dehb/

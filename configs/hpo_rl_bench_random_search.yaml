@@ -4,7 +4,7 @@ defaults:
   - override hydra/sweeper: HyperRS
 
 algorithm: PPO
-environment: Pong-v0
+env: Pong-v0
 metric_key: "eval_avg_returns"
 seed: 0
 budget: 50
@@ -22,6 +22,6 @@ hydra:
       maximize: true
     search_space: ${search_space}
   run:
-    dir: ./results/hpo_rl_bench/${algorithm}_${environment}_rs/
+    dir: ./results/hpo_rl_bench/${algorithm}_${env}_rs/
   sweep:
-    dir: ./results/hpo_rl_bench/${algorithm}_${environment}_rs/
+    dir: ./results/hpo_rl_bench/${algorithm}_${env}_rs/
