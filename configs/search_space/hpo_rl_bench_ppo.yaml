@@ -1,0 +1,10 @@
+hyperparameters:
+  hp_config.lr:
+    type: categorical
+    choices: [-6, -5, -4, -3, -2, -1]
+  hp_config.gamma:
+    type: categorical
+    choices: [0.8, 0.9, 0.95, 0.98, 0.99, 1.0]
+  hp_config.clip:
+    type: categorical
+    choices: [0.2, 0.3, 0.4]

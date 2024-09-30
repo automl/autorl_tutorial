@@ -1,0 +1,34 @@
+defaults:
+  - _self_
+  - search_space: hpo_rl_bench_ppo
+  - override hydra/sweeper: HyperDEHB
+
+algorithm: PPO
+environment: Pong-v0
+metric_key: "eval_avg_returns"
+seed: 0
+budget: 50
+hp_config: 
+  lr: -6
+  gamma: 0.8
+  clip: 0.2
+
+hydra:
+  sweeper:
+    n_trials: 30
+    budget_variable: budget
+    sweeper_kwargs:
+      maximize: true
+      max_parallelization: 0.1
+      optimizer_kwargs:
+          _target_: dehb.DEHB
+          _partial_: true
+          n_workers: 1
+          min_fidelity: 1
+          max_fidelity: 50
+          output_path: ${hydra.sweep.dir}
+    search_space: ${search_space}
+  run:
+    dir: ./results/hpo_rl_bench/${algorithm}_${environment}_dehb/
+  sweep:
+    dir: ./results/hpo_rl_bench/${algorithm}_${environment}_dehb/

@@ -1,0 +1,3 @@
+[submodule "HPO-RL-Bench"]
+	path = HPO-RL-Bench
+	url = https://github.com/machinelearningnuremberg/HPO-RL-Bench.git

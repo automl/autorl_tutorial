@@ -1,1 +1,2 @@
-# autorl_tutorial
+# AutoRL Tutorial
+This repository contains utilities for André Biedenkapp's & Theresa Eimer's tutorial "Beyond Trial & Error: A Tutorial on Automated Reinforcement Learning". The full tutorial is best experienced on Colab TODO.

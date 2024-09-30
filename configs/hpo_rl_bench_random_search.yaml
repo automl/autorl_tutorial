@@ -1,0 +1,27 @@
+defaults:
+  - _self_
+  - search_space: hpo_rl_bench_ppo
+  - override hydra/sweeper: HyperRS
+
+algorithm: PPO
+environment: Pong-v0
+metric_key: "eval_avg_returns"
+seed: 0
+budget: 50
+hp_config: 
+  lr: -6
+  gamma: 0.8
+  clip: 0.2
+
+hydra:
+  sweeper:
+    n_trials: 30
+    sweeper_kwargs:
+      max_parallelization: 1.0
+      max_budget: ${hydra.sweeper.n_trials}
+      maximize: true
+    search_space: ${search_space}
+  run:
+    dir: ./results/hpo_rl_bench/${algorithm}_${environment}_rs/
+  sweep:
+    dir: ./results/hpo_rl_bench/${algorithm}_${environment}_rs/
