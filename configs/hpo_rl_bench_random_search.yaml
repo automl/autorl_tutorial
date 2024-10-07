@@ -22,6 +22,6 @@ hydra:
       maximize: true
     search_space: ${search_space}
   run:
-    dir: ./results/hpo_rl_bench/${algorithm}_${env}_rs/seed_${seed}
+    dir: ./results/hpo_rl_bench/${algorithm}_${env}_rs/seed_${search_space.seed}
   sweep:
-    dir: ./results/hpo_rl_bench/${algorithm}_${env}_rs/seed_${seed}
+    dir: ./results/hpo_rl_bench/${algorithm}_${env}_rs/seed_${search_space.seed}

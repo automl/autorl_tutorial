@@ -36,6 +36,6 @@ hydra:
           output_directory: ${hydra.sweep.dir}
     search_space: ${search_space}
   run:
-    dir: ./results/hpo_rl_bench/${algorithm}_${env}_smac_mf/seed_${seed}
+    dir: ./results/hpo_rl_bench/${algorithm}_${env}_smac_mf/seed_${search_space.seed}
   sweep:
-    dir: ./results/hpo_rl_bench/${algorithm}_${env}_smac_mf/seed_${seed}
+    dir: ./results/hpo_rl_bench/${algorithm}_${env}_smac_mf/seed_${search_space.seed}
