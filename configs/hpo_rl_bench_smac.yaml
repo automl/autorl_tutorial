@@ -1,7 +1,7 @@
 defaults:
   - _self_
   - search_space: hpo_rl_bench_ppo
-  - override hydra/sweeper: HyperCARPS
+  - override hydra/sweeper: HyperSMAC
 
 algorithm: PPO
 env: Pong-v0
@@ -16,37 +16,25 @@ hp_config:
 hydra:
   sweeper:
     n_trials: 30
-    search_space: ${search_space}
     budget_variable: budget
     sweeper_kwargs:
-      maximize: true
       optimizer_kwargs:
-        _target_: carps.optimizers.smac20.SMAC3Optimizer
-        _partial_: true
-        task: 
+        smac_facade: 
+          _target_: smac.facade.multi_fidelity_facade.MultiFidelityFacade
+          _partial_: true
+        intensifier: 
+          _target_: smac.facade.multi_fidelity_facade.MultiFidelityFacade.get_intensifier
+          _partial_: true
+          eta: 3
+        scenario:
           n_trials: ${hydra.sweeper.n_trials}
-          n_objectives: 1
-          time_budget: null
-          n_workers: 1
-          is_multifidelity: false
+          seed: ${seed}
           min_budget: 1
           max_budget: 50
-        smac_cfg:
-          smac_class: smac.facade.multi_fidelity_facade.MultiFidelityFacade
-          scenario:
-            seed: 0
-            n_trials: ${hydra.sweeper.n_trials}
-            deterministic: true
-            n_workers: 1
-            min_budget: 1
-            max_budget: 50
-            output_directory: ${hydra.sweep.dir}
-          smac_kwargs:
-            dask_client: null
-            intensifier:
-              _target_: smac.intensifier.hyperband.Hyperband
-              _partial_: true
-              eta: 3
+          deterministic: true
+          n_workers: 1
+          output_directory: ${hydra.sweep.dir}
+    search_space: ${search_space}
   run:
     dir: ./results/hpo_rl_bench/${algorithm}_${env}_smac/
   sweep:
