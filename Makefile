@@ -22,5 +22,5 @@ install-hpo-rl-bench: ## run tests quickly with the default Python
 install-other-dependencies:
 	pip install arlbench gymnasium==0.29.1 xminigrid==0.8.0 tqdm
 	pip install "hypersweeper[dehb]"
-	pip install numpy==1.24.0 configspace==0.6.1 smac==2.0.2 gpytorch
+	pip install numpy==1.24.0 configspace==0.6.1 smac==2.0.2 gpytorch rich
 	
