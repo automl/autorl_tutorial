@@ -1,5 +1,5 @@
 import sys
-sys.path.append("HPO-RL-Bench")
+sys.path.append("./HPO-RL-Bench")
 from benchmark_handler import BenchmarkHandler
 
 import hydra
