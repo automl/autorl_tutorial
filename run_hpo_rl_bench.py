@@ -1,10 +1,10 @@
 import sys
-sys.path.append("./HPO-RL-Bench")
+from pathlib import Path
+sys.path.append(str(Path(__file__).resolve().parent / "HPO-RL-Bench"))
 from benchmark_handler import BenchmarkHandler
 
 import hydra
 import numpy as np
-from pathlib import Path
 
 @hydra.main(config_path="configs", config_name="hpo_rl_bench_random_search", version_base="1.1")
 def evaluate_hpo_rl_bench(config):
