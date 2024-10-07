@@ -23,12 +23,12 @@ hydra:
           _partial_: true
         scenario:
           n_trials: ${hydra.sweeper.n_trials}
-          seed: ${seed}
+          seed: ${search_space.seed}
           deterministic: true
           n_workers: 1
           output_directory: ${hydra.sweep.dir}
     search_space: ${search_space}
   run:
-    dir: ./results/hpo_rl_bench/${algorithm}_${env}_smac/
+    dir: ./results/hpo_rl_bench/${algorithm}_${env}_smac/seed_${seed}
   sweep:
-    dir: ./results/hpo_rl_bench/${algorithm}_${env}_smac/
+    dir: ./results/hpo_rl_bench/${algorithm}_${env}_smac/seed_${seed}

@@ -28,7 +28,7 @@ hydra:
           eta: 3
         scenario:
           n_trials: ${hydra.sweeper.n_trials}
-          seed: ${seed}
+          seed: ${search_space.seed}
           min_budget: 1
           max_budget: 50
           deterministic: true
@@ -36,6 +36,6 @@ hydra:
           output_directory: ${hydra.sweep.dir}
     search_space: ${search_space}
   run:
-    dir: ./results/hpo_rl_bench/${algorithm}_${env}_smac_mf/
+    dir: ./results/hpo_rl_bench/${algorithm}_${env}_smac_mf/seed_${seed}
   sweep:
-    dir: ./results/hpo_rl_bench/${algorithm}_${env}_smac_mf/
+    dir: ./results/hpo_rl_bench/${algorithm}_${env}_smac_mf/seed_${seed}
