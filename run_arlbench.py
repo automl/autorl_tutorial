@@ -13,9 +13,13 @@ from typing import TYPE_CHECKING
 import hydra
 import jax
 from arlbench.arlbench import run_arlbench
+from omegaconf import OmegaConf
 
 if TYPE_CHECKING:
     from omegaconf import DictConfig
+
+OmegaConf.register_new_resolver("multiply", lambda x, y: x * y, replace=True)
+OmegaConf.register_new_resolver("divide", lambda x, y: x / y, replace=True)
 
 
 @hydra.main(version_base=None, config_path="configs", config_name="arlbench_rs")
