@@ -12,7 +12,8 @@ from typing import TYPE_CHECKING
 
 import hydra
 import jax
-from arlbench.arlbench import run_arlbench
+import os
+from arlbench import AutoRLEnv
 from omegaconf import OmegaConf
 
 if TYPE_CHECKING:
@@ -35,6 +36,7 @@ def execute(cfg: DictConfig):
         logger.info("Enabling x64 support for JAX.")
         jax.config.update("jax_enable_x64", True)
     try:
+        cfg = OmegaConf.to_container(cfg, resolve=True)
         return run(cfg, logger)
     except Exception:
         traceback.print_exc(file=sys.stderr)
@@ -43,7 +45,43 @@ def execute(cfg: DictConfig):
 
 def run(cfg: DictConfig, logger: logging.Logger):
     """Console script for arlbench."""
-    objectives = run_arlbench(cfg, logger=logger)
+    if "load" in cfg and cfg["load"]:
+        checkpoint_path = os.path.join(
+            cfg["load"],
+            cfg["autorl"]["checkpoint_name"],
+            "default_checkpoint_c_episode_1_step_1",
+        )
+    else:
+        checkpoint_path = None
+
+    # We check if we need to save a checkpoint for HyperPBT
+    # If so, we need to adapt the autorl config accordingly
+    if "save" in cfg and cfg["save"]:
+        cfg["autorl"]["checkpoint_dir"] = str(cfg["save"]).replace(".pt", "")
+        if cfg["algorithm"] == "PPO":
+            cfg["autorl"]["checkpoint"] = ["opt_state", "params"]
+        else:
+            cfg["autorl"]["checkpoint"] = ["opt_state", "params", "buffer"]
+
+    # Here, we define how the AutoRLEnv should behave
+    env = AutoRLEnv(cfg["autorl"])
+    _ = env.reset()
+
+    if logger:
+        logger.info("Your AutoRL config is:")
+        logger.info(OmegaConf.to_yaml(cfg["autorl"]))
+        logger.info("Training started.")
+    _, objectives, _, _, info = env.step(cfg["hp_config"], checkpoint_path=checkpoint_path)
+    if logger:
+        logger.info("Training finished.")
+
+    # Additionally, we store the evaluation rewards we had during training
+    info["train_info_df"].to_csv("evaluation.csv", index=False)
+
+    if len(objectives) == 1:
+        objectives = objectives[next(iter(objectives.keys()))]
+    else:
+        objectives = tuple(objectives.values())
 
     with open("./performance.csv", "w+") as f:
         f.write(str(objectives))
