@@ -7,6 +7,7 @@ defaults:
 
 hydra:
   sweeper:
+    budget: ${multiply:${environment.n_total_timesteps},${hydra.sweeper.n_trials}}
     n_trials: 16
     budget_variable: autorl.n_total_timesteps
     search_space: ${search_space}
