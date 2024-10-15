@@ -27,9 +27,9 @@ hydra:
       maximize: true
       max_parallelization: 1
   run:
-    dir: ./results/arlbench/${algorithm}_${autorl.env_name}_pb2/config_interval_${hydra.sweeper.sweeper_kwargs.optimizer_kwargs.config_interval}/
+    dir: ./results/arlbench/${algorithm}_${autorl.env_name}_pbt/config_interval_${hydra.sweeper.sweeper_kwargs.optimizer_kwargs.config_interval}/
   sweep:
-    dir: ./results/arlbench/${algorithm}_${autorl.env_name}_pb2/config_interval_${hydra.sweeper.sweeper_kwargs.optimizer_kwargs.config_interval}/
+    dir: ./results/arlbench/${algorithm}_${autorl.env_name}_pbt/config_interval_${hydra.sweeper.sweeper_kwargs.optimizer_kwargs.config_interval}/
   job:
     chdir: true
 
