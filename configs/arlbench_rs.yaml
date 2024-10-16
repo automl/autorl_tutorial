@@ -10,6 +10,7 @@ hydra:
     n_trials: 16
     search_space: ${search_space}
     sweeper_kwargs:
+      maximize: true
       max_parallelization: 1 #  run all of it at once
   run:
     dir: ./results/arlbench/${algorithm}_${autorl.env_name}_rs/
