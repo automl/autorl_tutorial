@@ -1,0 +1,45 @@
+load_checkpoint: ''
+jax_enable_x64: false
+search_space.seed: 0
+autorl:
+  seed: 42
+  env_framework: ${environment.framework}
+  env_name: ${environment.name}
+  env_kwargs: ${environment.kwargs}
+  eval_env_kwargs: ${environment.eval_kwargs}
+  n_envs: ${environment.n_envs}
+  algorithm: ${algorithm}
+  cnn_policy: ${environment.cnn_policy}
+  deterministic_eval: ${environment.deterministic_eval}
+  nas_config: ${nas_config}
+  n_total_timesteps: ${environment.n_total_timesteps}
+  checkpoint: []
+  checkpoint_name: default_checkpoint
+  checkpoint_dir: /tmp
+  state_features: []
+  objectives:
+  - reward_mean
+  optimize_objectives: upper
+  n_steps: 10
+  n_eval_steps: 10
+  n_eval_episodes: 128
+algorithm: ppo
+hp_config:
+  clip_eps: 0.2
+  ent_coef: 0.0
+  gae_lambda: 0.95
+  gamma: 0.99
+  learning_rate: 0.0003
+  max_grad_norm: 0.5
+  minibatch_size: 64
+  n_steps: 128
+  normalize_advantage: true
+  normalize_observations: false
+  update_epochs: 10
+  vf_clip_eps: 0.2
+  vf_coef: 0.5
+nas_config:
+  activation: tanh
+  hidden_size: 64
+environment: cc_pendulum
+search_space: arlbench_ppo
